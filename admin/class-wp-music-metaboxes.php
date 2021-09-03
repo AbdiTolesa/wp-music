@@ -74,6 +74,18 @@ class WP_Music_Metaboxes {
 			)
 		);
 
+		add_meta_box(
+			'wp-music_publisher',
+            __( 'Publisher', 'text-domain' ),
+			array( $this, 'metabox' ),
+			'music',
+			'normal',
+			'default',
+            array(
+				'file' => 'publisher'
+			)
+		);
+
 	} // add_metaboxes()
 
     	/**
@@ -151,6 +163,7 @@ class WP_Music_Metaboxes {
 		// $fields[] = array( 'job-additional-info', 'textarea' );
 		// $fields[] = array( 'job-responsibilities', 'textarea' );
 		$fields[] = array( 'composer-name', 'text' );
+		$fields[] = array( 'publisher', 'text' );
 		//$fields[] = array( 'file-repeater', 'repeater', array( array( 'label-file', 'text' ), array( 'url-file', 'url' ) ) );
 
 		return $fields;
