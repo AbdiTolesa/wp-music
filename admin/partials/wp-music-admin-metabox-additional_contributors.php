@@ -14,9 +14,9 @@
 $atts 					= array();
 $atts['class'] 			= 'widefat';
 $atts['description'] 	= '';
-$atts['id'] 			= 'publisher';
-$atts['label'] 			= 'Publisher';
-$atts['name'] 			= 'publisher';
+$atts['id'] 			= 'additional_contributors';
+$atts['label'] 			= 'Additional contributors';
+$atts['name'] 			= 'additional_contributors';
 $atts['placeholder'] 	= '';
 $atts['type'] 			= 'text';
 $atts['value'] 			= '';
@@ -25,12 +25,10 @@ $atts['value'] 			= '';
 global $wpdb;
 
 $custom_table = $wpdb->prefix . 'wp_music';
-
-$name = 'publisher';
-
+	
 $post_id = get_the_ID();
 
-$meta_value = $wpdb->get_var("SELECT publisher FROM  $custom_table where post_id = $post_id");
+$meta_value = $wpdb->get_var("SELECT additional_contributors FROM  $custom_table where post_id = $post_id ");
 
 $atts['value'] = $meta_value;
 

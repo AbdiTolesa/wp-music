@@ -14,25 +14,24 @@
 $atts 					= array();
 $atts['class'] 			= 'widefat';
 $atts['description'] 	= '';
-$atts['id'] 			= 'composer-name';
+$atts['id'] 			= 'composer_name';
 $atts['label'] 			= 'Composer name';
-$atts['name'] 			= 'composer-name';
+$atts['name'] 			= 'composer_name';
 $atts['placeholder'] 	= '';
 $atts['type'] 			= 'text';
 $atts['value'] 			= '';
 
-if ( ! empty( $this->meta[$atts['id']][0] ) ) {
 	
-	global $wpdb;
+global $wpdb;
 
-	$custom_table = $wpdb->prefix . 'wp_music';
-	$name = 'composer-name';
-	$post_id = get_the_ID();
+$custom_table = $wpdb->prefix . 'wp_music';
 
-	$meta_value = $wpdb->get_var("SELECT `$name` FROM  $custom_table where post_id = $post_id ");
+$post_id = get_the_ID();
 
-	$atts['value'] = $meta_value;
-}
+$meta_value = $wpdb->get_var("SELECT composer_name FROM  $custom_table where post_id = $post_id");
+
+$atts['value'] = $meta_value;
+
 
 //apply_filters( $this->plugin_name . '-field-' . $atts['id'], $atts );
 

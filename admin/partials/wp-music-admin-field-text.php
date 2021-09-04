@@ -21,6 +21,7 @@ if ( ! empty( $atts['label'] ) ) {
 	name="<?php echo esc_attr( $atts['name'] ); ?>"
 	placeholder="<?php echo esc_attr( $atts['placeholder'] ); ?>"
 	type="<?php echo esc_attr( $atts['type'] ); ?>"
+	step="<?php echo esc_attr( $atts['step'] ); ?>"
 	value="<?php echo esc_attr( $atts['value'] ); ?>" /><?php
 
 if ( ! empty( $atts['description'] ) ) {

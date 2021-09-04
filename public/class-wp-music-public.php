@@ -100,4 +100,77 @@ class Wp_Music_Public {
 
 	}
 
+	/**
+	 * Processes shortcode music
+	 *
+	 * @param   array	$atts		The attributes from the shortcode
+	 *
+	 *
+	 * @return	mixed	$output		Output of the template
+	 */
+	public function show_music_information( $atts = array() ){
+
+		//$defaults['loop-template'] 	= $this->plugin_name . '-loop';
+		$defaults['year'] 			= '2020';
+		$defaults['genre'] 		    = 'pop';
+
+		$args = shortcode_atts( $defaults, $atts, 'music' );
+
+		$music_list = $this->get_music_detail($args);
+
+		$this->music_details_template($music_list);
+
+		//return $output;
+	}
+
+
+	public function get_music_detail($args){
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'wp_music';
+
+		$output = $wpdb->get_results("SELECT * FROM $table_name");
+
+		return $output;
+	}
+
+	public function music_details_template($music_list){
+		echo '<div style="max-width:80%; text-align:center;">';
+		echo '<h3>Music list</h3>';
+		echo '<table>
+				<tr>
+					<th>Title</th>
+					<th>Composer Name</tdh>
+					<th>Publisher</th>
+					<th>Year of recording</th>
+					<th>Additional contributors</th>
+					<th>URL</th>
+					<th>Price</th>
+				</tr>';
+		foreach($music_list as $music){
+			echo '<tr>';
+			echo '<td>'.get_the_title($music->post_id).'</td>';
+			echo '<td>'.$music->composer_name.'</td>';
+			echo '<td>'.$music->publisher.'</td>';
+			echo '<td>'.$music->year_of_recording.'</td>';
+			echo '<td>'.$music->additional_contributors.'</td>';
+			echo '<td><a href="'.$music->url.'">'.$music->url.'</a></td>';
+			echo '<td>'.$music->price.'</td>';
+			echo '</tr>';
+		}
+		echo '</table>';
+		echo '</div>';
+	}
+
+	/**
+	 * Registers all shortcodes at once
+	 *
+	 * @return [type] [description]
+	 */
+	public function register_shortcodes() {
+
+		add_shortcode( 'music', array( $this, 'show_music_information' ) );
+
+	} // register_shortcodes()
 }

@@ -70,7 +70,7 @@ class WP_Music_Metaboxes {
 			'normal',
 			'default',
             array(
-				'file' => 'composer-name'
+				'file' => 'composer_name'
 			)
 		);
 
@@ -83,6 +83,54 @@ class WP_Music_Metaboxes {
 			'default',
             array(
 				'file' => 'publisher'
+			)
+		);
+
+		add_meta_box(
+			'wp-music_year_of_recording',
+            __( 'Year of recording', 'text-domain' ),
+			array( $this, 'metabox' ),
+			'music',
+			'normal',
+			'default',
+            array(
+				'file' => 'year_of_recording'
+			)
+		);
+
+		add_meta_box(
+			'wp-music_additional_contributors',
+            __( 'Additional contributors', 'text-domain' ),
+			array( $this, 'metabox' ),
+			'music',
+			'normal',
+			'default',
+            array(
+				'file' => 'additional_contributors'
+			)
+		);
+
+		add_meta_box(
+			'wp-music_url',
+            __( 'URL', 'text-domain' ),
+			array( $this, 'metabox' ),
+			'music',
+			'normal',
+			'default',
+            array(
+				'file' => 'url'
+			)
+		);
+
+		add_meta_box(
+			'wp-music_price',
+            __( 'Price', 'text-domain' ),
+			array( $this, 'metabox' ),
+			'music',
+			'normal',
+			'default',
+            array(
+				'file' => 'price'
 			)
 		);
 
@@ -162,8 +210,13 @@ class WP_Music_Metaboxes {
 		// $fields[] = array( 'job-requirements-skills', 'textarea' );
 		// $fields[] = array( 'job-additional-info', 'textarea' );
 		// $fields[] = array( 'job-responsibilities', 'textarea' );
-		$fields[] = array( 'composer-name', 'text' );
+		$fields[] = array( 'composer_name', 'text' );
 		$fields[] = array( 'publisher', 'text' );
+		$fields[] = array( 'year_of_recording', 'text' );
+		$fields[] = array( 'additional_contributors', 'text' );
+		$fields[] = array( 'url', 'text' );
+		$fields[] = array( 'price', 'text' );
+
 		//$fields[] = array( 'file-repeater', 'repeater', array( array( 'label-file', 'text' ), array( 'url-file', 'url' ) ) );
 
 		return $fields;
@@ -218,7 +271,7 @@ class WP_Music_Metaboxes {
 
 				$wpdb->insert($custom_table, array( 
 						'post_id' => $post_id, 
-						'composer-name' => $new_value, 
+						$name => $new_value, 
 					), 
             	);
 
