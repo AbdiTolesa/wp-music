@@ -110,10 +110,10 @@ class Wp_Music_Public {
 	 */
 	public function show_music_information( $atts = array() ){
 
-		//$defaults['year'] 			= '2020';
-		//$defaults['genre'] 		    = 'HipHop';
+		$defaults['year'] 			= '';
+		$defaults['genre'] 		    = '';
 
-		$args = shortcode_atts( $atts, 'music' );
+		$args = shortcode_atts( $defaults, $atts, 'music' );
 
 		$music_list = $this->get_music_detail($args);
 
@@ -132,11 +132,17 @@ class Wp_Music_Public {
 
 		$genre = $args['genre'];
 
-		$output = $wpdb->get_results("SELECT * FROM $table_name WHERE year_of_recording = $year");
+		$sql_query = "SELECT * FROM $table_name";
 		
-		foreach($output as $key=>$music_row){
-			if(!has_term($genre, 'genre', $music_row->post_id)){
-				unset($output[$key]);
+		$year ? $sql_query .= " WHERE year_of_recording = $year" : '';
+
+		$output = $wpdb->get_results($sql_query);
+		
+		if($genre){
+			foreach($output as $key=>$music_row){
+				if(!has_term($genre, 'genre', $music_row->post_id)){
+					unset($output[$key]);
+				}
 			}
 		}
 
@@ -167,13 +173,15 @@ class Wp_Music_Public {
 			echo '<td><a href="'.$music->url.'">'.$music->url.'</a></td>';
 			echo '<td>'.$music->price.'</td>';
 			echo '<td>';
-
+			
 			$terms = get_the_terms($music->post_id, 'genre');
-
-			foreach($terms as $term){
-				echo '<a href="'.get_term_link($term->term_id).'">'.$term->name.'</a>';
-				echo ' ';
+			if(is_array($terms)){
+				foreach($terms as $term){
+					echo '<a href="'.get_term_link($term->term_id).'">'.$term->name.'</a>';
+					echo ' ';
+				}
 			}
+
 			echo '</td>';
 			echo '</tr>';
 		}
