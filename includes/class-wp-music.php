@@ -140,7 +140,7 @@ class Wp_Music {
 				/**
 		 * The class responsible for all global functions.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/now-hiring-global-functions.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/wp-music-global-functions.php';
 		
 		/**
 		 * The class responsible for sanitizing user input
@@ -189,6 +189,7 @@ class Wp_Music {
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_sections' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_fields' );
+
 	}
 
 	/**

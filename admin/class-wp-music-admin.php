@@ -121,8 +121,8 @@ class Wp_Music_Admin {
 
 		$args = array( 
 			'labels'      => array( 
-				'name'          => __( 'Music', 'textdomain' ),
-				'singular_name' => __( 'Music', 'textdomain' ),
+				'name'          => __( 'Music', 'wp-music' ),
+				'singular_name' => __( 'Music', 'wp-music' ),
 				),
 			'public'             => true,
 			'publicly_queryable' => true,
@@ -136,17 +136,16 @@ class Wp_Music_Admin {
 	public function create_taxonomy_genre(){
 
 		$labels = array(
-			'name'              => __( 'Genres', 'textdomain' ),
-			'singular_name'     => __( 'Genre', 'textdomain' ),
-			'search_items'      => __( 'Search Genres', 'textdomain' ),
-			'all_items'         => __( 'All Genres', 'textdomain' ),
-			'parent_item'       => __( 'Parent Genre', 'textdomain' ),
-			'parent_item_colon' => __( 'Parent Genre:', 'textdomain' ),
-			'edit_item'         => __( 'Edit Genre', 'textdomain' ),
-			'update_item'       => __( 'Update Genre', 'textdomain' ),
-			'add_new_item'      => __( 'Add New Genre', 'textdomain' ),
-			'new_item_name'     => __( 'New Genre Name', 'textdomain' ),
-			'menu_name'         => __( 'Genre', 'textdomain' ),
+			'name'              => __( 'Genres', 'wp-music' ),
+			'singular_name'     => __( 'Genre', 'wp-music' ),
+			'search_items'      => __( 'Search Genres', 'wp-music' ),
+			'all_items'         => __( 'All Genres', 'wp-music' ),
+			'parent_item'       => __( 'Parent Genre', 'wp-music' ),
+			'parent_item_colon' => __( 'Parent Genre:', 'wp-music' ),
+			'edit_item'         => __( 'Edit Genre', 'wp-music' ),
+			'update_item'       => __( 'Update Genre', 'wp-music' ),
+			'add_new_item'      => __( 'Add New Genre', 'wp-music' ),
+			'new_item_name'     => __( 'New Genre Name', 'wp-music' ),
 		);
 	 
 		$args = array(
@@ -163,22 +162,22 @@ class Wp_Music_Admin {
 
 	public function create_taxonomy_music_tag(){
 		$labels = array(
-			'name'                       => __( 'Music Tags', 'textdomain' ),
-			'singular_name'              => __( 'Music Tag', 'textdomain' ),
-			'search_items'               => __( 'Search Music Tags', 'textdomain' ),
-			'popular_items'              => __( 'Popular Music Tags', 'textdomain' ),
-			'all_items'                  => __( 'All Music Tags', 'textdomain' ),
+			'name'                       => __( 'Music Tags', 'wp-music' ),
+			'singular_name'              => __( 'Music Tag', 'wp-music' ),
+			'search_items'               => __( 'Search Music Tags', 'wp-music' ),
+			'popular_items'              => __( 'Popular Music Tags', 'wp-music' ),
+			'all_items'                  => __( 'All Music Tags', 'wp-music' ),
 			'parent_item'                => null,
 			'parent_item_colon'          => null,
-			'edit_item'                  => __( 'Edit music tag', 'textdomain' ),
-			'update_item'                => __( 'Update music tag', 'textdomain' ),
-			'add_new_item'               => __( 'Add New music tag', 'textdomain' ),
-			'new_item_name'              => __( 'New music tag Name', 'textdomain' ),
-			'separate_items_with_commas' => __( 'Separate music tags with commas', 'textdomain' ),
-			'add_or_remove_items'        => __( 'Add or remove music tags', 'textdomain' ),
-			'choose_from_most_used'      => __( 'Choose from the most used music tags', 'textdomain' ),
-			'not_found'                  => __( 'No music tags found.', 'textdomain' ),
-			'menu_name'                  => __( 'Music Tags', 'textdomain' ),
+			'edit_item'                  => __( 'Edit music tag', 'wp-music' ),
+			'update_item'                => __( 'Update music tag', 'wp-music' ),
+			'add_new_item'               => __( 'Add New music tag', 'wp-music' ),
+			'new_item_name'              => __( 'New music tag Name', 'wp-music' ),
+			'separate_items_with_commas' => __( 'Separate music tags with commas', 'wp-music' ),
+			'add_or_remove_items'        => __( 'Add or remove music tags', 'wp-music' ),
+			'choose_from_most_used'      => __( 'Choose from the most used music tags', 'wp-music' ),
+			'not_found'                  => __( 'No music tags found.', 'wp-music' ),
+			'menu_name'                  => __( 'Music Tags', 'wp-music' ),
 		);
 	 
 		$args = array(
@@ -198,8 +197,8 @@ class Wp_Music_Admin {
 	public function add_settings_menu(){
 		add_submenu_page(
 			'edit.php?post_type=music',
-			__( 'Settings', 'textdomain' ),
-			__( 'Settings', 'textdomain' ),
+			__( 'Settings', 'wp-music' ),
+			__( 'Settings', 'wp-music' ),
 			'manage_options',
 			'music_settings',
 			array($this, 'settings_callback')
@@ -216,8 +215,7 @@ class Wp_Music_Admin {
 
 		add_settings_field(
 			'setting-currency',
-			// apply_filters( $this->plugin_name . 'label-message-no-openings', esc_html__( 'No Openings Message', 'now-hiring' ) ),
-			__('Currency', 'textdomain'),
+			__('Currency', 'wp-music'),
 			array( $this, 'field_select' ),
 			$this->plugin_name,
 			$this->plugin_name . '-section',
@@ -232,7 +230,7 @@ class Wp_Music_Admin {
 
 		add_settings_field(
 			'setting-music-per-page',
-			__('Music per page', 'textdomain'),
+			__('Music per page', 'wp-music'),
 			array( $this, 'field_text' ),
 			$this->plugin_name,
 			$this->plugin_name . '-section',
@@ -258,7 +256,7 @@ class Wp_Music_Admin {
 
 		add_settings_section(
 			$this->plugin_name . '-section',
-			__( '', 'textdomain' ),
+			__( '', 'wp-music' ),
 			array( $this, 'section_messages' ),
 			$this->plugin_name
 		);
@@ -404,7 +402,6 @@ class Wp_Music_Admin {
 	 */
 	public function section_messages( $params ) {
 
-		//include( plugin_dir_path( __FILE__ ) . 'partials/now-hiring-admin-section-messages.php' );
 		echo '';
 	} // section_messages()
 

@@ -110,17 +110,15 @@ class Wp_Music_Public {
 	 */
 	public function show_music_information( $atts = array() ){
 
-		//$defaults['loop-template'] 	= $this->plugin_name . '-loop';
-		$defaults['year'] 			= '2020';
-		$defaults['genre'] 		    = 'pop';
+		//$defaults['year'] 			= '2020';
+		//$defaults['genre'] 		    = 'HipHop';
 
-		$args = shortcode_atts( $defaults, $atts, 'music' );
+		$args = shortcode_atts( $atts, 'music' );
 
 		$music_list = $this->get_music_detail($args);
 
 		$this->music_details_template($music_list);
 
-		//return $output;
 	}
 
 
@@ -130,14 +128,24 @@ class Wp_Music_Public {
 
 		$table_name = $wpdb->prefix . 'wp_music';
 
-		$output = $wpdb->get_results("SELECT * FROM $table_name");
+		$year = $args['year'];
+
+		$genre = $args['genre'];
+
+		$output = $wpdb->get_results("SELECT * FROM $table_name WHERE year_of_recording = $year");
+		
+		foreach($output as $key=>$music_row){
+			if(!has_term($genre, 'genre', $music_row->post_id)){
+				unset($output[$key]);
+			}
+		}
 
 		return $output;
 	}
 
 	public function music_details_template($music_list){
 		echo '<div style="max-width:80%; text-align:center;">';
-		echo '<h3>Music list</h3>';
+		echo '<h3>'.__('Music list', 'wp-music').'</h3>';
 		echo '<table>
 				<tr>
 					<th>Title</th>
@@ -147,6 +155,7 @@ class Wp_Music_Public {
 					<th>Additional contributors</th>
 					<th>URL</th>
 					<th>Price</th>
+					<th>Genres</th>
 				</tr>';
 		foreach($music_list as $music){
 			echo '<tr>';
@@ -157,6 +166,15 @@ class Wp_Music_Public {
 			echo '<td>'.$music->additional_contributors.'</td>';
 			echo '<td><a href="'.$music->url.'">'.$music->url.'</a></td>';
 			echo '<td>'.$music->price.'</td>';
+			echo '<td>';
+
+			$terms = get_the_terms($music->post_id, 'genre');
+
+			foreach($terms as $term){
+				echo '<a href="'.get_term_link($term->term_id).'">'.$term->name.'</a>';
+				echo ' ';
+			}
+			echo '</td>';
 			echo '</tr>';
 		}
 		echo '</table>';

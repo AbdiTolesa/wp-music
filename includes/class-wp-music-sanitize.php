@@ -187,13 +187,13 @@ class WP_Music_Sanitize {
 
 		if ( empty( $type ) ) {
 
-			$check = new WP_Error( 'forgot_type', __( 'Specify the data type to sanitize.', 'now-hiring' ) );
+			$check = new WP_Error( 'forgot_type', __( 'Specify the data type to sanitize.', 'wp-music' ) );
 
 		}
 
 		if ( is_wp_error( $check ) ) {
 
-			wp_die( $check->get_error_message(), __( 'Forgot data type', 'now-hiring' ) );
+			wp_die( $check->get_error_message(), __( 'Forgot data type', 'wp-music' ) );
 
 		}
 

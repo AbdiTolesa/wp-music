@@ -11,7 +11,7 @@
 
 if ( ! empty( $atts['label'] ) ) {
 
-	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'now-hiring' ); ?>: </label><?php
+	?><label for="<?php echo esc_attr( $atts['id'] ); ?>"><?php esc_html_e( $atts['label'], 'wp-music' ); ?>: </label><?php
 
 }
 
@@ -26,6 +26,6 @@ if ( ! empty( $atts['label'] ) ) {
 
 if ( ! empty( $atts['description'] ) ) {
 
-	?><span class="description"><?php esc_html_e( $atts['description'], 'text-domain' ); ?></span><?php
+	?><span class="description"><?php esc_html_e( $atts['description'], 'wp-music' ); ?></span><?php
 
 }

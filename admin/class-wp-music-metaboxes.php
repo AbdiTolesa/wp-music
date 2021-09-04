@@ -64,7 +64,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_composer_name',
-            __( 'Composer name', 'text-domain' ),
+            __( 'Composer name', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -76,7 +76,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_publisher',
-            __( 'Publisher', 'text-domain' ),
+            __( 'Publisher', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -88,7 +88,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_year_of_recording',
-            __( 'Year of recording', 'text-domain' ),
+            __( 'Year of recording', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -100,7 +100,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_additional_contributors',
-            __( 'Additional contributors', 'text-domain' ),
+            __( 'Additional contributors', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -112,7 +112,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_url',
-            __( 'URL', 'text-domain' ),
+            __( 'URL', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -124,7 +124,7 @@ class WP_Music_Metaboxes {
 
 		add_meta_box(
 			'wp-music_price',
-            __( 'Price', 'text-domain' ),
+            __( 'Price', 'wp-music' ),
 			array( $this, 'metabox' ),
 			'music',
 			'normal',
@@ -194,6 +194,35 @@ class WP_Music_Metaboxes {
 
 	} // set_meta()
 
+
+	/**
+	 * Check each nonce. If any don't verify, $nonce_check is increased.
+	 * If all nonces verify, returns 0.
+	 *
+	 * @since 		1.0.0
+	 * @access 		public
+	 * @return 		int 		The value of $nonce_check
+	 */
+	private function check_nonces( $posted ) {
+
+		$nonces 		= array();
+		$nonce_check 	= 0;
+
+		$nonces[] 		= 'job_requirements_nonce';
+		$nonces[] 		= 'job_additional_info';
+		$nonces[] 		= 'job_files';
+
+		foreach ( $nonces as $nonce ) {
+
+			if ( ! isset( $posted[$nonce] ) ) { $nonce_check++; }
+			if ( isset( $posted[$nonce] ) && ! wp_verify_nonce( $posted[$nonce], $this->plugin_name ) ) { $nonce_check++; }
+
+		}
+
+		return $nonce_check;
+
+	} // check_nonces()
+
     /**
 	 * Returns an array of the all the metabox fields and their respective types
 	 *
@@ -248,7 +277,7 @@ class WP_Music_Metaboxes {
 		if ( ! current_user_can( 'edit_post', $post_id ) ) { return $post_id; }
 		if ( 'music' !== $object->post_type ) { return $post_id; }
 
-		// $nonce_check = $this->check_nonces( $_POST );
+		$nonce_check = $this->check_nonces( $_POST );
 
 		// if ( 0 < $nonce_check ) { return $post_id; }
 
