@@ -162,27 +162,42 @@ class Wp_Music_Public {
 					<th>URL</th>
 					<th>Price</th>
 					<th>Genres</th>
+					<th>Tags</th>
 				</tr>';
 		foreach($music_list as $music){
 			echo '<tr>';
 			echo '<td>'.get_the_title($music->post_id).'</td>';
-			echo '<td>'.$music->composer_name.'</td>';
-			echo '<td>'.$music->publisher.'</td>';
-			echo '<td>'.$music->year_of_recording.'</td>';
-			echo '<td>'.$music->additional_contributors.'</td>';
-			echo '<td><a href="'.$music->url.'">'.$music->url.'</a></td>';
-			echo '<td>'.$music->price.'</td>';
+			echo '<td>'.esc_html($music->composer_name).'</td>';
+			echo '<td>'.esc_html($music->publisher).'</td>';
+			echo '<td>'.esc_html($music->year_of_recording).'</td>';
+			echo '<td>'.esc_html($music->additional_contributors).'</td>';
+			echo '<td><a href="'.$music->url.'">'.esc_html($music->url).'</a></td>';
+			echo '<td>'.esc_html($music->price).'</td>';
 			echo '<td>';
 			
-			$terms = get_the_terms($music->post_id, 'genre');
-			if(is_array($terms)){
-				foreach($terms as $term){
-					echo '<a href="'.get_term_link($term->term_id).'">'.$term->name.'</a>';
+			$genres = get_the_terms($music->post_id, 'genre');
+			if(is_array($genres)){
+				foreach($genres as $term){
+					echo '<a href="'.get_term_link($term->term_id).'">'.esc_html($term->name).'</a>';
 					echo ' ';
 				}
 			}
 
 			echo '</td>';
+
+			echo '<td>';
+
+			$music_tags = get_the_terms($music->post_id, 'music-tag');
+			if(is_array($music_tags)){
+				foreach($music_tags as $term){
+					echo '<a href="'.get_term_link($term->term_id).'">'.esc_html($term->name).'</a>';
+					echo ' ';
+				}
+			}
+
+			echo '</td>';
+
+
 			echo '</tr>';
 		}
 		echo '</table>';
