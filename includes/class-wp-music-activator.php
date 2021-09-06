@@ -44,7 +44,7 @@ class Wp_Music_Activator {
 			year_of_recording varchar(255) NULL,
 			additional_contributors varchar(255) NULL,
 			url varchar(255) NULL,
-			price varchar(255) NULL,
+			price double(8,2) NULL,
 			PRIMARY KEY  (post_id)
 			)
 			COLLATE $wpdb_collate";
